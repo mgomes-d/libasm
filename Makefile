@@ -3,11 +3,11 @@ NAME = libasm.a
 SRC_DIR = srcs
 OBJ_DIR = objs
 
-SRC = ft_strlen.s
+SRC = ft_strlen.s ft_strcpy.s ft_strcmp.s ft_write.s ft_read.s ft_strdup.s
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.s=.o))
 
-EXEC = lib.test
+EXEC = tester.result
 
 all: $(NAME)
 
@@ -16,7 +16,7 @@ $(NAME): $(OBJ)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.s
 	@mkdir -p $(@D)  # Crée le répertoire objs si nécessaire
-	nasm -f macho64 $< -o $@
+	nasm -f elf64 $< -o $@
 
 test: all
 	gcc -Wall -Wextra -Werror main.c $(NAME) -o $(EXEC)

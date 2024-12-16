@@ -1,2 +1,2 @@
 make test 
-./lib.test
+./tester.result
