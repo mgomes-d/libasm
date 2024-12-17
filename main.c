@@ -120,7 +120,8 @@ int main(){
     errno = 0;
     dup_str2 = ft_strdup(NULL);
     int ft_strdup_errno = errno;
-    printf("Got: %p, errno: %d\n", dup_str2, ft_strdup_errno);
+    printf("Expected: %p, errno: %d\n", NULL, EINVAL); // Expected result for NULL input
+    printf("Got: %p, errno: %d\n", (void *)dup_str2, ft_strdup_errno);
 
     return 0;
 }
