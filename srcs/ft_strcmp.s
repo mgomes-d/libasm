@@ -1,23 +1,25 @@
-.text:
-    global ft_strcmp
+global ft_strcmp
+section .text
 
-ft_strcmp:  
+; rdi = const char* = s1
+; rsi = const char* = s2
 
-.loopy:
-    mov al, [rdi]
-    mov bl, [rsi]
-    cmp al, bl
-    jne .return
-    test al, al
-    je .return
-    inc rdi
-    inc rsi
-    jmp .loopy
+ft_strcmp:
+    xor rax, rax
 
-.return:
-    sub al, bl          
-    seta cl             
-    setb dl
+loop:
+    mov cl, BYTE[rdi + rax]
+    mov dl, BYTE[rsi + rax]
+    cmp cl, 0
+    jz return
+    cmp dl, 0
+    jz return
+    cmp cl, dl
+    jnz return
+    inc rax
+    jmp loop
+
+return:
     sub cl, dl
-    movsx rax, cl 
-    ret    
+    movsx rax, cl
+    ret

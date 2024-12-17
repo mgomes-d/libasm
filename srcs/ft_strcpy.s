@@ -1,17 +1,21 @@
-.text:
-    global ft_strcpy
+global ft_strcpy
+section .text
+
+; rdi = char* = dest
+; rsi = const char* = src
 
 ft_strcpy:
-    push rdi
+    xor rax, rax
 
-.loopy:
-    mov al, [rsi]
-    mov [rdi], al
-    inc rsi
-    inc rdi
-    test al, al ; check if null
-    jnz .loopy
+loop:
+    mov dl, [rsi + rax]
+    mov [rdi + rax], dl
+    cmp dl, 0
+    jz return
+    inc rax
+    jmp loop
 
-    pop rax
+return:
+    mov byte[rdi + rax], 0
+    mov rax, rdi
     ret
-
