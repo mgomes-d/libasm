@@ -6,20 +6,21 @@ section .text
 
 ft_strcmp:
     xor rax, rax
+    xor rcx, rcx
 
 loop:
-    mov cl, BYTE[rdi + rax]
-    mov dl, BYTE[rsi + rax]
-    cmp cl, 0
+    cmp BYTE[rdi + rcx], 0
     jz return
-    cmp dl, 0
+    cmp BYTE[rsi + rcx], 0
     jz return
-    cmp cl, dl
+    mov dl, BYTE[rsi + rcx]
+    cmp BYTE[rdi + rcx], dl
     jnz return
-    inc rax
+    inc rcx
     jmp loop
 
 return:
-    sub cl, dl
-    movsx rax, cl
+    movzx rax, BYTE[rdi + rcx]
+    movzx rdx, BYTE[rsi + rcx]
+    sub rax, rdx
     ret
